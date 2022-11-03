@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["app/*"]
+    },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,

@@ -16,12 +16,10 @@ import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
 import Config from "../config"
-import { useStores } from "../models" // @demo remove-current-line
 import {
-  LoginScreen, // @demo remove-current-line
-  WelcomeScreen,
+  MapScreen, // @demo remove-current-line
 } from "../screens"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
 /**
@@ -39,6 +37,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  */
 export type AppStackParamList = {
   Welcome: undefined
+  Map: undefined
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   // 🔥 Your screens go here
@@ -59,32 +58,13 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreen
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
-  // @demo remove-block-start
-  const {
-    authenticationStore: { isAuthenticated },
-  } = useStores()
-
   // @demo remove-block-end
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"} // @demo remove-current-line
+      initialRouteName="Map" // @demo remove-current-line
     >
-      {/* @demo remove-block-start */}
-      {isAuthenticated ? (
-        <>
-          {/* @demo remove-block-end */}
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </>
-      )}
-      {/* @demo remove-block-end */}
-      {/** 🔥 Your screens go here */}
+      <Stack.Screen name="Map" component={MapScreen} />
     </Stack.Navigator>
   )
 })
